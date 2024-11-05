@@ -1,38 +1,30 @@
-# Methods of Advanced Data Engineering Template Project
+<div align="center">
+  <h1>Interlinked Health Dynamics: Exploring Correlations Between Chronic Disease Indicators and Mortality Rates</h1>
+  <img src="https://www.chesco.org/ImageRepository/Document?documentID=72703" width="800" height="400" alt="Project Logo">
+</div>
 
-This template project provides some structure for your open data project in the MADE module at FAU.
-This repository contains (a) a data science project that is developed by the student over the course of the semester, and (b) the exercises that are submitted over the course of the semester.
+<div align="center">
 
-To get started, please follow these steps:
-1. Create your own fork of this repository. Feel free to rename the repository right after creation, before you let the teaching instructors know your repository URL. **Do not rename the repository during the semester**.
+[![Jayvee](https://img.shields.io/badge/jayvee-0.6.3-blue.svg)](https://pypi.org/project/jayvee/0.6.3/)
 
-## Project Work
-Your data engineering project will run alongside lectures during the semester. We will ask you to regularly submit project work as milestones, so you can reasonably pace your work. All project work submissions **must** be placed in the `project` folder.
+[![Exercise Feedback](https://github.com/Ahsankkhan/advance_data_engineering/actions/workflows/exercise-feedback.yml/badge.svg)](https://github.com/Ahsankkhan/advance_data_engineering/actions/workflows/exercise-feedback.yml)
+![Ex1](https://img.shields.io/badge/Ex1-100%25-brightgreen)![Ex2](https://img.shields.io/badge/Ex2-100%25-brightgreen)
 
-### Exporting a Jupyter Notebook
-Jupyter Notebooks can be exported using `nbconvert` (`pip install nbconvert`). For example, to export the example notebook to HTML: `jupyter nbconvert --to html examples/final-report-example.ipynb --embed-images --output final-report.html`
+</div>
 
+# Table of Contents
 
-## Exercises
-During the semester you will need to complete exercises using [Jayvee](https://github.com/jvalue/jayvee). You **must** place your submission in the `exercises` folder in your repository and name them according to their number from one to five: `exercise<number from 1-5>.jv`.
+1. [Project Overview](#project-overview)
+2. [Data Sources](#data-sources)
 
-In regular intervals, exercises will be given as homework to complete during the semester. Details and deadlines will be discussed in the lecture, also see the [course schedule](https://made.uni1.de/).
+## Project Overview
+This project investigates the relationships between chronic disease indicators and mortality rates in the United States from 2020 to 2023. The main objectives are:
 
-### Exercise Feedback
-We provide automated exercise feedback using a GitHub action (that is defined in `.github/workflows/exercise-feedback.yml`). 
+1. Are there correlations between chronic disease indicators (e.g., diabetes prevalence) and specific death rates (e.g., due to heart disease)?
 
-To view your exercise feedback, navigate to Actions → Exercise Feedback in your repository.
+2. What were the leading causes of death each year between 2020 and 2023?
 
-The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
-
-```sh
-Found exercises/exercise1.jv, executing model...
-Found output file airports.sqlite, grading...
-Grading Exercise 1
-	Overall points 17 of 17
-	---
-	By category:
-		Shape: 4 of 4
-		Types: 13 of 13
-```
-
+## Data Sources
+The project utilizes the following datasets:
+- **Monthly Provisional Counts of Deaths by Select Causes (2020-2023)**: Provisional counts of deaths categorized by various causes, including chronic diseases.
+- **U.S. Chronic Disease Indicators**: A comprehensive set of chronic disease prevalence indicators, including diabetes and heart disease rates across states.
