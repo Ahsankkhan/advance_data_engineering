@@ -1,0 +1,46 @@
+{
+    "MonthlyProvisionalCountsofDeathsbySelectCauses": {
+        "url": "https://data.cdc.gov/api/views/9dzk-mvmi/rows.csv?accessType=DOWNLOAD",
+        "columnsToDelete": [
+            "Data As Of",
+            "Start Date",
+            "End Date",
+            "flag_accid",
+            "flag_mva",
+            "flag_suic",
+            "flag_homic",
+            "flag_drugod",
+            "Jurisdiction of Occurrence"
+        ]
+    },
+    "USChronicDiseaseIndicators": {
+        "url": "https://data.cdc.gov/api/views/g4ie-h725/rows.csv?accessType=DOWNLOAD",
+        "columnsToDelete": [
+            "YearEnd",
+            "DataSource",
+            "Question",
+            "QuestionID",
+            "DataValueTypeID",
+            "DataValueUnit",
+            "Response",
+            "ResponseID",
+            "LocationID",
+            "TopicID",
+            "StratificationCategory2",
+            "Stratification2",
+            "StratificationCategory3",
+            "Stratification3",	
+            "GeoLocation",
+            "DataValueAlt",
+            "DataValueFootnoteSymbol",
+            "DatavalueFootnote",
+            "StratificationCategoryID1",
+            "StratificationID1",
+            "StratificationCategoryID2",
+            "StratificationID2",
+            "StratificationCategoryID3",
+            "StratificationID3"
+        ],
+        "filteringQuery":"LocationAbbr == \"US\" "
+    }
+}
