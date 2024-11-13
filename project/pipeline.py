@@ -11,11 +11,11 @@ from data_processing.load import LoadDfToSqlite
 def main():
 
     #Read Json file to get datasources metadata
-    filePath = Path(__file__).parent / 'datasources.json'
+    filePath = './project/datasources.json'
     config = ReadJson(filePath)
 
     # get DB info
-    dbName = Path('../data/ChronicHealthTrends.db')
+    dbName = Path('./data/ChronicHealthTrends.db')
 
     for datasetName, config in config.items():
         #get datesources url
