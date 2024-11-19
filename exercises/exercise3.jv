@@ -29,53 +29,36 @@
 
 pipeline WorldDevelopmentReportPipeline{
 
-    BondIssuanceHttpExtractor
-        ->BondIssuanceXLSXInterpreter
-        ->BondIssuanceSheetPicker
-        ->BondIssuanceCoreDataSelector
-        ->BondIssuanceNameHeaderWriter
+    WorldDevelopmentReportHttpExtractor
+        ->WorldDevelopmentReportXLSXInterpreter
+        ->WorldDevelopmentReportSheetPicker
+        ->WorldDevelopmentReportCoreDataSelector
+        ->WorldDevelopmentReportNameHeaderWriter;
+
+    WorldDevelopmentReportNameHeaderWriter
         ->BondIssuanceTableInterpreter
-        ->BondIssuanceCellsLoader
-;
-    GdpPerCapitaHttpExtractor
-        ->GdpPerCapitaXLSXInterpreter
-        ->GdpPerCapitaSheetPicker
-        ->GdpPerCapitaCoreDataSelector
-        ->GdpPerCapitaNameHeaderWriter
+        ->BondIssuanceCellsLoader;
+
+    WorldDevelopmentReportNameHeaderWriter
         ->GdpPerCapitaTableInterpreter
-        ->GdpPerCapitaCellsLoader
-;
+        ->GdpPerCapitaCellsLoader;
 
 
-    block BondIssuanceHttpExtractor oftype HttpExtractor {
-        url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
-    }
-    
-    block GdpPerCapitaHttpExtractor oftype HttpExtractor {
+    block WorldDevelopmentReportHttpExtractor oftype HttpExtractor {
         url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
     }
 
-    block BondIssuanceXLSXInterpreter oftype XLSXInterpreter { }
+    block WorldDevelopmentReportXLSXInterpreter oftype XLSXInterpreter { }
 
-    block GdpPerCapitaXLSXInterpreter oftype XLSXInterpreter { }
-
-    block BondIssuanceSheetPicker oftype SheetPicker {
+    block WorldDevelopmentReportSheetPicker oftype SheetPicker {
        sheetName: "Figure S5.1.2";
     }
     
-    block GdpPerCapitaSheetPicker oftype SheetPicker {
-       sheetName: "Figure S5.1.2";
-    }
-
-    block BondIssuanceCoreDataSelector oftype CellRangeSelector {
+    block WorldDevelopmentReportCoreDataSelector oftype CellRangeSelector {
         select: range P2:S45;
     }
 
-    block GdpPerCapitaCoreDataSelector oftype CellRangeSelector {
-        select: range P2:S45;
-    }
-
-    block BondIssuanceNameHeaderWriter oftype CellWriter {
+    block WorldDevelopmentReportNameHeaderWriter oftype CellWriter {
         at: range A1:D1;
         write: [
         "Country Code",
@@ -85,31 +68,22 @@ pipeline WorldDevelopmentReportPipeline{
         ];
     }
 
-    block GdpPerCapitaNameHeaderWriter oftype CellWriter {
-        at: range A1:D1;
-        write: [
-        "Country Code",
-        "Economy",
-        "GDP per Capita",
-        "Bond Issuance Share"
-        ];
+    constraint GDPperCapitaRegex oftype RangeConstraint {
+        lowerBound: 0;
     }
 
-    constraint GDPperCapitaRegex oftype RegexConstraint {
-        regex: /^\d+(\.\d+)?/;
-    }
-
-    valuetype gdppercapita oftype text {
+    valuetype gdppercapita oftype decimal {
         constraints: [
             GDPperCapitaRegex,
         ];
     }
 
-    constraint BondIssuanceShareRegex oftype RegexConstraint {
-        regex: /^0(\.\d+)?|1(\.0+)?$/;
+    constraint BondIssuanceShareRegex oftype RangeConstraint {
+        lowerBound: 0;
+        upperBound: 1;
     }
 
-    valuetype bondissuanceshare oftype text {
+    valuetype bondissuanceshare oftype decimal {
         constraints: [
             BondIssuanceShareRegex,
         ];
