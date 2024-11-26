@@ -22,14 +22,14 @@
 	\begin{itemize}
 		\item \textbf{Datasource 1: Monthly Provisional Counts of Deaths by Select Causes (2020--2023)}
 		
-		The dataset includes number of deaths happened due to different causes like heart disease, diabetes, cancer and COVID-19. It provides data spanning over both time-related (monthly from 2020 to 2023) and geographic coverage for United States. \cite{dataset1}
+		The dataset includes the total counts of deaths attributed to different causes like heart disease, diabetes, cancer and COVID-19. It provides data spanning both time-related (monthly from 2020 to 2023) and geographic coverage for the United States. \cite{dataset1}
 	
 	\end{itemize}
 
 	\begin{itemize}
 		\item \textbf{Datasource 2: U.S. Chronic Disease Indicators (CDI)} 
 		
-		The dataset provides information of chronic disease indicators  including prevalence rates demographic distributions and trends over time. By providing the insights of underlying health conditions that are leading to death, this dataset helps in getting the deeper understanding factors contributing to deaths. \cite{dataset2}
+		The dataset includes information on chronic disease indicators highlighting prevalence rates, demographic distributions and trends over time. By providing the insights of underlying health conditions that are leading to death, this dataset helps in getting a deeper understanding about the factors contributing to deaths. \cite{dataset2}
 		
 	\end{itemize}
 	
@@ -37,7 +37,7 @@
 	\begin{itemize}
 		\item \textbf{Monthly Provisional Counts of Deaths by Select Causes}
 		
-		The dataset is structured in a way that the causes of deaths are in columns and rows represent the months, well structured for time series analysis. Key columns include Year, Month and different causes of death (e.g., heart disease, diabetes, cancer). Null values are not that much and most columns are completely populated. Some columns are empty but they are not needed for the analysis.
+		The dataset represents the monthly provisional counts of deaths characterized by cause. Each columns represents distinct types of disease associated with the deaths, while the rows display the total death counts with the corresponding dates, months, years and different causes of death (e.g., heart disease, diabetes, cancer). There are a few missing values, but most columns have no missing data. Some columns are empty, however, they are not necessary for the analysis
 		\begin{figure}[ht!]
 			\centering
 			\includegraphics[width=0.9\textwidth]{images/dataset-1.png}
@@ -48,7 +48,7 @@
 	\begin{itemize}
 		\item \textbf{U.S. Chronic Disease Indicators (CDI)} 
 		
-		The dataset is represented in tabular format were rows represent health indicators and columns is grouped by demographics (e.g., gender, race, geographic location). Key columns are Year, location, topic (is the indicator), questions and Datavalue. Some columns are empty but they are not needed for the analysis.
+		The dataset is represented in tabular format where the rows represents health indicators and columns are grouped by demographics (e.g., gender, race, geographic location). The primary columns in the dataset are year, location, topic (indicator), questions and datavalue. Some columns are empty, however, they are not necessary for the analysis.
 		\begin{figure}[ht!]
 			\centering
 			\includegraphics[width=0.9\textwidth]{images/dataset-2.png}
@@ -62,21 +62,21 @@
 	\begin{itemize}
 	\item \textbf{Monthly Provisional Counts of Deaths by Select Causes (2020--2023)}
 	
-	The data is license under the \texttt{U.S. Government Work (Public Domain)}. The dataset is publicly available and produce by US Government. I can freely use this dataset to follow there restriction I will provide proper attribution to the U.S. government as the source of the data, While ensuring that I will not use any logo or anything that implies that it is endorse by the U.S. government. \cite{licenses2}
+	The data is licensed under the \texttt{U.S. Government Work (Public Domain)}. The dataset is publicly available and produce by the U.S. Government. The dataset is free to use, with the only requirement being tp provide proper attribution to the U.S. government. Additionally, to ensure that no logos or other content are used in a way that implies endorsement by the U.S. government. \cite{licenses2}
 	\end{itemize}
 	
 	\begin{itemize}
 	\item \textbf{U.S. Chronic Disease Indicators (CDI)} 
 		
-	This dataset is licensed under \texttt{Open Database License (ODbL)}. I am allow to free use this but need to provide proper attribution. I will adhere to this restriction by properly citing this dataset in my report and analysis. \cite{licenses1}
+	This dataset is available for free use under\texttt{Open Database License (ODbL)}. User are required to provide proper attribution to the original source. Additionally, any derived work must be shared under the same license. \cite{licenses1}
 		
 	\end{itemize}
 
 
 	\subsection{Data Pipeline}
-The data pipeline is developed using python. It contains three main modules: extract, transform, load. These modules contain respective functionalities.
+The data pipeline is developed using Python. It contains three main modules: extract, transform, load. These modules contain the following functionalities.
  
- The pipeline begins by reading the metadata from a JSON file (\texttt{datasources.json}) to gather information about the data sources like URL, and columns to remove. The process starts by extracting the data from the URL using the \texttt{CsvExtractor} function, which retrieves the dataset in CSV format. Next, unnecessary columns are removed using the \texttt{DeleteColumns} function, based on the configuration provided in the metadata. If a filtering query is specified for the dataset, the \texttt{FilterRows} function is used to filter the data accordingly. Now, empty values in the dataset are filled using the \texttt{FillEmptyValues} function to ensure completeness. Finally, the transformed dataset is loaded into a SQLite database (\texttt{ChronicHealthTrends.db}) using the \texttt{LoadDfToSqlite} function, storing the data with the appropriate dataset name.
+ We start by reading the metadata from a JSON file (\texttt{datasources.json}) to gather information about the data sources like URL, and columns to be removed. The process starts by extracting the data from the URL using the \texttt{CsvExtractor} function, which retrieves the dataset in a CSV. Next, unnecessary columns are removed using the \texttt{DeleteColumns} function, based on the configuration provided in the metadata. If a filtering query is specified for the dataset, the \texttt{FilterRows} function is used to filter the data accordingly. Then, empty values in the dataset are filled using the \texttt{FillEmptyValues} function to ensure completeness. Finally, the transformed dataset is loaded into the SQLite database (\texttt{ChronicHealthTrends.db}) using the \texttt{LoadDfToSqlite} function, storing the data with the appropriate dataset name.
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[node distance=1.5cm and 1.5cm, auto]
@@ -108,14 +108,14 @@ The data pipeline is developed using python. It contains three main modules: ext
 
 	
 \section{Results and Limitations}
-Output result of the data pipeline is stored in SQLLite in table format as this is the most efficient and reliable way to store collective data. The pipeline can maintain the quality of data. The resultant datasets
+The resulting datesets are stored in SQLLite in tabular format as it is the most efficient and reliable way to store collective data. The pipeline can maintain the quality of data. The resultant datasets
 \begin{itemize}
 	\item fulfill the requirement that is needed to answer the questions.
 	\item time domain is overlapping and fitting
-	\item format is consistent
+	\item ensure format is consistent
 \end{itemize}
 
-The datasets on chronic disease indicators and mortality statistics can be compared and analyzed to uncover correlations between chronic health conditions and mortality trends across various demographic and geographic segments. This enables a comprehensive understanding of the health factors contributing to death rates. However, a limitation arises with the granularity of chronic disease data, as it may not provide sufficient specificity to link certain health indicators directly to mortality causes.
+The datasets on chronic disease indicators and mortality statistics can be compared and analyzed to uncover correlations between chronic health conditions and mortality trends across various demographic and geographic segments. This analysis provides a detailed understanding of the underlying health factors contributing to death rates. However, a limitation exists regarding the granularity of chronic disease data, as it may not provide sufficient specificity directly link certain health indicators to the cause of mortality.
 
 
 
