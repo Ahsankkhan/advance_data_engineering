@@ -1,30 +1,30 @@
 // Build an automated data pipeline for the following source:
-    // https://mobilithek.info/offers/526718847762190336
-    // Direct download link: https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip
+//     https://mobilithek.info/offers/526718847762190336
+//     Direct download link: https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip
 
 // Goal
 
 // Download and unzip data
-    // Use the “data.csv” in the zip file
+//     Use the “data.csv” in the zip file
 
 // Reshape data
-    // Only use the columns "Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C"
-    // There can be multiple temperature measurements per row
-        // You can ignore all columns to the right of the first “​​Geraet aktiv”
-    // Translate/rename column headers from German to English:
-        // “Geraet” to “id”
-        // “Hersteller” to “producer”
-        // “Model” to “model”
-        // “Monat” to “month”
-        // “Temperatur in °C (DWD)” to “temperature”
-        // “Batterietemperatur in °C” to “battery_temperature”
+//     Only use the columns "Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C"
+//     There can be multiple temperature measurements per row
+//         You can ignore all columns to the right of the first “​​Geraet aktiv”
+//     Translate/rename column headers from German to English:
+//         “Geraet” to “id”
+//         “Hersteller” to “producer”
+//         “Model” to “model”
+//         “Monat” to “month”
+//         “Temperatur in °C (DWD)” to “temperature”
+//         “Batterietemperatur in °C” to “battery_temperature”
 
 // Transform data
-    // Transform temperatures in Celsius to Fahrenheit (formula is (TemperatureInCelsius * 9/5) + 32) in place (keep the same column names)
-        // For the columns temperature and battery_temperature
+//     Transform temperatures in Celsius to Fahrenheit (formula is (TemperatureInCelsius * 9/5) + 32) in place (keep the same column names)
+//         For the columns temperature and battery_temperature
 
 // Validate data
-    // Use validations as you see fit, e.g., for “Geraet” to be an id over 0
+//     Use validations as you see fit, e.g., for “Geraet” to be an id over 0
 
 // Use fitting SQLite types (e.g., BIGINT, TEXT or FLOAT) for all columns
 
@@ -89,7 +89,7 @@ pipeline TemperaturesPipeline{
         lowerBound: 0;
     }
 
-    valuetype id oftype decimal {
+    valuetype id oftype integer {
         constraints: [
             IdRegex,
         ];
