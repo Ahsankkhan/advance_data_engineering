@@ -1,0 +1,136 @@
+// Build an automated data pipeline for the following source:
+    // https://mobilithek.info/offers/526718847762190336
+    // Direct download link: https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip
+
+// Goal
+
+// Download and unzip data
+    // Use the “data.csv” in the zip file
+
+// Reshape data
+    // Only use the columns "Geraet", "Hersteller", "Model", "Monat", "Temperatur in °C (DWD)", "Batterietemperatur in °C"
+    // There can be multiple temperature measurements per row
+        // You can ignore all columns to the right of the first “​​Geraet aktiv”
+    // Translate/rename column headers from German to English:
+        // “Geraet” to “id”
+        // “Hersteller” to “producer”
+        // “Model” to “model”
+        // “Monat” to “month”
+        // “Temperatur in °C (DWD)” to “temperature”
+        // “Batterietemperatur in °C” to “battery_temperature”
+
+// Transform data
+    // Transform temperatures in Celsius to Fahrenheit (formula is (TemperatureInCelsius * 9/5) + 32) in place (keep the same column names)
+        // For the columns temperature and battery_temperature
+
+// Validate data
+    // Use validations as you see fit, e.g., for “Geraet” to be an id over 0
+
+// Use fitting SQLite types (e.g., BIGINT, TEXT or FLOAT) for all columns
+
+// Write data into a SQLite database called “temperatures.sqlite”, in the table “temperatures”
+
+
+pipeline TemperaturesPipeline{
+
+    TemperaturesFileExtractor
+        ->TemperaturesZipArchiveInterpreter
+        ->TemperaturesFilePicker
+        ->TemperaturesTextFileInterpreter
+        ->TemperaturesCSVInterpreter
+        ->TemperaturesDataSelector
+        ->TemperaturesColumnDeleter
+        ->TemperaturesNameHeaderWriter
+        ->TemperaturesTableInterpreter
+        ->temperatureTransformer
+        ->battery_temperatureTransformer
+        ->TemperaturesCellsLoader;
+
+
+    block TemperaturesFileExtractor oftype HttpExtractor {
+    url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+    block TemperaturesZipArchiveInterpreter oftype ArchiveInterpreter {
+    archiveType: "zip";
+    }
+
+    block TemperaturesFilePicker oftype FilePicker {
+    path: "./data.csv";
+    }
+    
+    block TemperaturesTextFileInterpreter oftype TextFileInterpreter{}
+
+    block TemperaturesCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block TemperaturesDataSelector oftype CellRangeSelector {
+        select: range A1:J*;
+    }
+
+    block TemperaturesColumnDeleter oftype ColumnDeleter {
+        delete: [column F, column G, column H, column I];
+    }
+
+    block TemperaturesNameHeaderWriter oftype CellWriter {
+        at: range A1:F1;
+        write: [
+        "id",
+        "producer",
+        "model",
+        "month",
+        "temperature",
+        "battery_temperature"
+        ];
+    }
+
+    constraint IdRegex oftype RangeConstraint {
+        lowerBound: 0;
+    }
+
+    valuetype id oftype decimal {
+        constraints: [
+            IdRegex,
+        ];
+    }
+
+    block TemperaturesTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+        "id" oftype id,
+        "producer" oftype text,
+        "model" oftype text,
+        "month" oftype integer,
+        "temperature" oftype decimal,
+        "battery_temperature" oftype decimal
+        ];
+    }
+
+    transform CelsiusToFahrenheit {
+        from celsius oftype decimal;
+        to fahrenheit oftype decimal;
+
+        fahrenheit: (celsius * 9/5) + 32;
+    }
+
+
+
+    block temperatureTransformer oftype TableTransformer {
+        inputColumns: ['temperature'];
+        outputColumn: 'temperature';
+        uses: CelsiusToFahrenheit;
+    }
+
+    block battery_temperatureTransformer oftype TableTransformer {
+        inputColumns: ['battery_temperature'];
+        outputColumn: 'battery_temperature';
+        uses: CelsiusToFahrenheit;
+    }
+
+    block TemperaturesCellsLoader oftype SQLiteLoader {
+        table: "temperatures";
+        file: "./temperatures.sqlite";
+    }
+    
+}
