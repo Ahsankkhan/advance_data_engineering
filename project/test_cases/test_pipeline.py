@@ -42,17 +42,17 @@ def get_sample_config():
 
 def test_delete_columns(get_sample_data,get_sample_config):
     transformed_df=DeleteColumns(get_sample_data,get_sample_config['columnsToDelete'])
-    assert 'B' not in transformed_df, "Column B is now deleted"
+    assert 'B' not in transformed_df, "Column B is not deleted"
 
 
 def test_filter_rows(get_sample_data,get_sample_config):
     transformed_df = FilterRows(get_sample_data,get_sample_config['filteringQuery'])
-    assert len(transformed_df) == 2, "The dataframe should now contain 2 rows"
+    assert len(transformed_df) == 2, "The dataframe does not contain 2 rows"
 
 
 def test_fill_empty_rows(get_sample_data):
     transformed_df = FillEmptyValues(get_sample_data)
-    assert not transformed_df.isnull().values.any(), "All the empty values are now removed"
+    assert not transformed_df.isnull().values.any(), "All the empty values are not removed"
 
 
 def test_pipeline_output_file(execute_pipeline):
