@@ -135,20 +135,20 @@ The datasets on chronic disease indicators and mortality statistics can be compa
 
 \subsection{Are there correlations between chronic disease indicators (e.g., diabetes prevalence) and specific death rates (e.g., due to heart disease)?}
 
-\begin{wrapfigure}{r}{0.61\textwidth} % Image aligned to the right
+\begin{wrapfigure}{r}{0.60\textwidth} % Image aligned to the right
 	\centering
 	\includegraphics[width=0.38\textwidth]{images/graph-1.png} % Image file added
 	\caption{Correlation Between Chronic Disease Relative Prevalence and Death Rates}
 	\label{fig:scatterplot}
 \end{wrapfigure}
 
-I started by building a data pipeline to handle all the data engineering tasks, ensuring the datasets were clean, organized, and ready for analysis. Once the groundwork was laid, I delved into each dataset, exploring them individually to uncover some fascinating insights. From there, I created scatter plots with regression lines for each chronic disease to better understand the relationship between relative prevalence and death rates. The regression lines helped highlight trends and potential correlations, with steeper slopes indicating stronger relationships. Along the way, I identified data points that significantly deviated from the trendline as potential outliers or exceptions.
+To handle the data engineering processes, I start by building a data pipeline making sure the datasets are clean and organized for the analysis part. Initially, started by exploring the datasets individually to look for patterns or trends in the datasets. To gain more insight into the association between the chronic disease indicators and specific death rates  scatter plots with regression lines are generated. The regression lines illustrates the hidden trends and correlations. The steeper slopes signifies a stronger association. Also, the datapoints that deviated from the trend line were identified which could be assumed as potential outliers.
 
-The results varied by disease. For diabetes, a moderate positive correlation was observed (correlation: 0.67), indicating that higher relative diabetes prevalence often coincided with higher death rates. Cardiovascular disease exhibited a strong positive correlation (correlation: 0.94), suggesting a significant increase in death rates with higher relative prevalence. In contrast, cancer showed a weak negative correlation (correlation: -0.36), implying that death rates may not align closely with relative prevalence. Chronic Obstructive Pulmonary Disease (COPD) displayed a moderate negative correlation (correlation: -0.56), reflecting some variability in the relationship. For mental health, the correlation was weaker or inconsistent, suggesting that factors beyond relative prevalence may significantly influence related death rates.
+The outcome varied by the type of diseases as for cardiovascular diseases illustrated a strong positive correlation (of approximately 0.94), signifying a significant rise in the death rates with higher relative prevalence. Meanwhile, a moderate positive correlation was identified (of around 0.67), suggesting that the higher relative diabetes prevalence mostly coincided with higher death rates.  Contrarily, cancer illustrated a weak negative correlation (of about -0.36), indicating that the death rates are not so closely associated with the relative prevalence rate. For the Chronic Obstructive Pulmonary Disease (COPD) implied a moderate negative correlation (of about -0.56), indicating some variability in the relationship between them. The correlation for mental health was observed to be weaker, reflecting that some other factors beyond relative prevalence may have an influence over the related death rates.
 
 \subsection{What were the leading causes of death each year between 2020 and 2023?}
 
-To identify the leading diseases causing death each year between 2020 and 2023, I began by filtering the dataset to focus specifically on these years. The year was extracted from the datetime column to facilitate comparison with integer values representing each year. I then excluded irrelevant columns, such as "Month," "All Cause," and "Natural Cause," focusing only on the columns related to specific causes of death. The death counts for each cause were then aggregated yearly, ensuring the data was numeric and that any missing or invalid values were handled. To highlight the most impactful diseases, I selected the top 5 leading causes of death based on total death counts for each year. Finally, I created a bar plot to visually present the results, grouping the causes by year and using color to distinguish between diseases.
+To analyze the leading causes of death between the year 2020 and 2023, the dataset was filtered to extract values that lied in the range. For extracting the values, "datetime" column was incorporated aiding in comparison with the integer values that represented each year. All the irrelevant columns were excluded from the dataset including "Month", "All Cause", and "Natural Cause", only the columns related to the specific causes of deaths were kept. The death count for each disease were grouped yearly, to ensure the data was numeric and all the missing and erroneous values were handled accordingly. To identify the most prevalent diseases, only the top 5 leading causes of death based on the total death counts for each year were considered. Later, a bar plot was generated to illustrate the outcome, aggregating the causes by year and using a color scheme to differentiate among the different diseases.
 
 \begin{figure}[ht!]
 	\centering
@@ -166,15 +166,15 @@ To identify the leading diseases causing death each year between 2020 and 2023, 
 	\caption{Comparison of Top Causes of Death and Their Trends (2020-2023)}
 \end{figure}
 
-The results, displayed in the graphs, show the top 5 leading causes of death from 2020 to 2023. The bar chart highlights the year-over-year variation in the leading diseases, with some remaining consistent, such as cardiovascular diseases and cancer, while others fluctuated. Chronic diseases like cardiovascular diseases and cancer continued to dominate as leading causes of death throughout the period.
+The results illustrated in the bar plot, signifies the top 5 leading causes of death from the period of 2020 to 2023. Year-over-year variation of the most significant diseases with some remaining consistent throughout the period such as the chronic diseases like cardiovascular diseases and cancer, while others varying over the duration can be observed.
 
 \section{Conclusion}
 
-Yes, there are correlations between chronic disease indicators and specific death rates, but the strength of these correlations varies by disease. Diseases like cardiovascular disease and diabetes exhibit strong positive correlations with death rates, while cancer and mental health show weaker or inconsistent relationships. Additionally, the analysis of the leading causes of death between 2020 and 2023 revealed that while chronic diseases such as cardiovascular disease and cancer consistently remained among the top causes of death, external factors may have influenced year-to-year variations.
+There are links between certain death rates and indicators of chronic diseases although the strength of these associations varies per condition. While cancer and mental health have weaker association with the death rates, conditions like diabetes and cardiovascular diseases have a large positive correlation with the death rates. Furthermore, the examination of the leading causes of deaths from 2020 to 2023 indicated that, although chronic conditions continued to rank among the primary causes of death, year-to-year variations may have been impacted by outside variables or other causes.
 
 \vspace{1em}
 
-The question was partially answered. While correlations between disease prevalence and death rates were identified, causation cannot be inferred from this analysis. The impact of external factors might have influenced the trends observed, making it challenging to isolate the specific contribution of chronic diseases alone. Furthermore, healthcare quality, lifestyle, and demographic factors could also independently influence death rates.
+Although the deeper dive into the datasets highlighted the associations among the death rates and disease prevalence, this research does not support the idea of causality. It can be difficult to conclude the precise role of the chronic diseases alone because of the potential influence of outside factors on the trends illustrated. Moreover, demographics, lifestyle, and healthcare quality may all have an independent role on the death rates.
 
 \vspace{1em}
 
